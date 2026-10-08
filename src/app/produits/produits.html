@@ -1,21 +1,40 @@
 <div class="container">
     <div class="card shadow mb-4">
         <div class="card-body">
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Liste de Produits</th>
+                        <th>N°</th>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Date de Création</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
-                @for(produit of produits;track produit){
-                    <tbody>
-                        <tr>
-                            <td>{{produit}}</td>
+                <tbody>
+                @for(produit of produits;track produit.idProduit; let i= $index, first = $first) {
+                    @if (first){
+                        <tr class="table-info">
+                            <td colspan="6">
+                                <strong>Nombre total de produits : {{ produits.length }}</strong>
+                            </td>
                         </tr>
-                    </tbody>
-
+                    }
+                        
+                    <tr>
+                        <td>{{i}}</td>
+                        <td>{{produit.idProduit}}</td>
+                        <td>{{produit.nomProduit}}</td>
+                        <td>{{produit.prixProduit}}</td>
+                        <td>{{produit.dateCreation | date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <a class ="btn btn-danger" (click)="supprimerProduit(produit)">Supprimer</a>
+                            <a class ="btn btn-success ms-2" [routerLink]="['/update-Produit',produit.idProduit]">Modifier</a>
+                        </td>
+                    </tr>
                 }
-                
+                </tbody>   
             </table>
         </div>
     </div>
